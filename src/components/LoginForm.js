@@ -1,19 +1,15 @@
 import { useState } from 'react';
 
 const LoginForm = () => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
     const [typePassword, setTypePassword] = useState('password')
+    const [user, setUser] = useState({
+        username: "",
+        password: "",
+    })
 
-
-    const handleChangeUsername = (e) => {
-        setUsername(e.target.value)
+    const handleInput = (e) => {
+        setUser({ ...user, [e.target.name]: e.target.value })
     }
-
-    const handleChangePassword = (e) => {
-        setPassword(e.target.value)
-    }
-
     const handleShowPassword = (e) => {
         if (e.target.checked) {
             setTypePassword("text")
@@ -23,22 +19,28 @@ const LoginForm = () => {
         }
     }
 
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+    }
+
     return (
         <div className="form-container">
             <div className="form-wrapper">
                 <h1>LOGIN FORM</h1>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <label htmlFor="username">Username</label>
-                    <input type="text" id="username" placeholder="Enter username" className="form-input" value={username} onChange={handleChangeUsername}></input>
+                    <input type="text" id="username" placeholder="Enter username" name="username" className="form-input" value={user.username} onChange={handleInput}></input>
                     <label htmlFor="password">Passwords</label>
-                    <input type={typePassword} id="password" placeholder="Enter password" className="form-input" value={password} onChange={handleChangePassword}></input>
+                    <input type={typePassword} id="password" placeholder="Enter password" name="password" className="form-input" value={user.password} onChange={handleInput}></input>
                     <input type="checkbox" id="showPass" onChange={handleShowPassword} />
                     <label htmlFor="showPass" style={{ padding: '5px' }}>Show password</label>
                     <button type="submit">Login</button>
                 </form>
                 <label>Not have account? <a href="#" target="_blank">Register now</a></label>
             </div>
-        </div>
+        </div >
     )
 }
 

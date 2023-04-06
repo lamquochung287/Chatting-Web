@@ -7,6 +7,11 @@ code {
     monospace;
 }
 
+:root {
+  --shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
 .form-container {
   padding: 20px;
   align-items: center;
@@ -20,6 +25,8 @@ code {
   justify-content: center;
   padding: 10px;
   background-color: white;
+  box-shadow: var(--shadow-2);
+  border-radius: 5px;
   gap: 15px;
   height: 50%;
   width: 50%;
@@ -36,10 +43,12 @@ input[type='password'] {
 }
 
 button {
-  background-color: #04aa6d;
-  color: white;
+  background-color: rgb(200, 255, 254);
+  color: black;
   padding: 14px 20px;
-  width: 100px;
+  width: 100%;
+  border: 0px;
+  border-radius: 5px;
 }
 
 .person-container {
@@ -63,4 +72,9 @@ button {
 img {
   width: 100px;
   border-radius: 10px;
+}
+
+.form-input {
+  border-radius: 5px;
+  background-color: rgb(227, 255, 254);
 }

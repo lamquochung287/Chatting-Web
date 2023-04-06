@@ -1,13 +1,66 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffcccb;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.form-container {
+  padding: 20px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.form-wrapper {
+  margin-top: auto;
+  margin-bottom: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: white;
+  gap: 15px;
+  height: 50%;
+  width: 50%;
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #04aa6d;
+  color: white;
+  padding: 14px 20px;
+  width: 100px;
+}
+
+.person-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.person-infor {
+  display: flex;
+  flex-direction: column;
+}
+
+.person-item {
+  padding: 5px;
+}
+
+.person-img {
+  padding: 10px;
+}
+
+img {
+  width: 100px;
+  border-radius: 10px;
 }

@@ -37,12 +37,12 @@ input[type='password'] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
-  display: inline-block;
+  display: inline-box;
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
 
-button {
+.btn-submit {
   background-color: rgb(200, 255, 254);
   color: black;
   padding: 14px 20px;
@@ -77,4 +77,17 @@ img {
 .form-input {
   border-radius: 5px;
   background-color: rgb(227, 255, 254);
+}
+
+.btn-show-pass {
+  position: absolute;
+  top: 20px;
+  right: 1px;
+  border: none;
+  background-color: inherit;
+}
+
+.form-control-pass {
+  width: 100%;
+  position: relative;
 }

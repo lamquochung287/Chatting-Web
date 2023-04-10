@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { ButtonCustom } from './ButtonCustom';
 
 const LoginForm = () => {
     const [typePassword, setTypePassword] = useState('password')
     const [isShowPwd, setShowPwd] = useState(false)
+    const [button, setButton] = useState("btn-submit")
+    const [buttonName, setButtonName] = useState("Login")
+    const [isSubmit, setIsSubmit] = useState(false)
 
     const [user, setUser] = useState({
         username: "",
@@ -26,7 +30,14 @@ const LoginForm = () => {
 
 
     const handleSubmit = (e) => {
+        setIsSubmit(true)
+        setButton("btn-loading")
+        setButtonName("Watting...")
         e.preventDefault()
+        if (user.username === "quochung" && user.password === "123456") {
+            setButton("btn-success")
+            setButtonName("SUCCESS")
+        }
 
     }
 
@@ -48,7 +59,7 @@ const LoginForm = () => {
                             )}
                         </button>
                     </div>
-                    <button className="btn-submit" type="submit">Login</button>
+                    <ButtonCustom process={button} name={buttonName} disabled={isSubmit}></ButtonCustom>
                 </form>
                 <label>Not have account? <a href="#" target="_blank">Register now</a></label>
             </div>

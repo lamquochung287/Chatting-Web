@@ -4,7 +4,7 @@ import { ButtonCustom } from './ButtonCustom';
 import { useGlobalContext } from '../context/AppContext';
 
 const LoginForm = () => {
-    const { isLoading, nameButton, styleButton, login } = useGlobalContext()
+    const { isLoading, nameButton, styleButton, login, isError, messageError } = useGlobalContext()
     const [typePassword, setTypePassword] = useState('password')
     const [isShowPwd, setShowPwd] = useState(false)
     const [styleInput, setStyleInput] = useState(false)
@@ -15,10 +15,15 @@ const LoginForm = () => {
         password: "",
     })
 
-    const checkEmpty = (inputValue) => {
-        if (!inputValue.username || !inputValue.password) {
+    const checkEmpty = () => {
+        if (!user.username || !user.password) {
             setEmpty({ isEmpty: true, message: "Please enter username and password field" })
             setStyleInput(true)
+            return
+        }
+        else {
+            setEmpty({ isEmpty: false })
+            setStyleInput(false)
             return
         }
     }
@@ -40,8 +45,7 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        checkEmpty({ username: user.username, password: user.password })
-        setEmpty({ isEmpty: false })
+        checkEmpty()
         login(user)
 
 
@@ -70,8 +74,8 @@ const LoginForm = () => {
                     </div>
                     <ButtonCustom process={styleButton} name={nameButton} disabled={isLoading}></ButtonCustom>
                     <div>
-                        <span className={isEmpty === true ? "form-message-error" : ""}>
-                            {isEmpty.message}
+                        <span className={isEmpty.isEmpty === true || isError === true ? "form-message-error" : ""}>
+                            {isEmpty.message || messageError}
                         </span>
                     </div>
                 </form>

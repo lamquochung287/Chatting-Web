@@ -13,7 +13,7 @@ const reducer = (state, action) => {
         return { ...state, isLoading: false, nameButton: "SUCCESS", styleButton: "btn-success" }
     }
     if (action.type === LOGIN_ERROR) {
-        return { ...state, isLoading: false, nameButton: "Login", styleButton: "btn-submit" }
+        return { ...state, isLoading: false, nameButton: "Login", styleButton: "btn-submit", isError: true, messageError: "Your username or password is incorrect" }
     }
 }
 

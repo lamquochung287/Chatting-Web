@@ -10,8 +10,9 @@ import {
 const defaultState = {
     isLoading: false,
     nameButton: "Login",
-    styleButton: "btn-submit"
-
+    styleButton: "btn-submit",
+    isError: false,
+    messageError: ""
 }
 const AppContext = React.createContext();
 
@@ -30,7 +31,7 @@ const AppProvider = ({ children }) => {
             }
             else {
                 dispatch({
-                    type: LOGIN_ERROR, payload: { isLoading: state.isLoading, nameButton: state.nameButton, styleButton: state.styleButton }
+                    type: LOGIN_ERROR, payload: { isLoading: state.isLoading, nameButton: state.nameButton, styleButton: state.styleButton, isError: state.isError, messageError: state.messageError }
                 })
             }
         }, 1000)

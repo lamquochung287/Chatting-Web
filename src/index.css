@@ -109,3 +109,18 @@ img {
   border: 0px;
   border-radius: 5px;
 }
+
+.form-input-error {
+  border-radius: 5px;
+  background-color: rgb(227, 255, 254);
+  border-color: red;
+}
+
+.form-message-error {
+  font-size: 1em;
+  color: red;
+}
+
+button {
+  text-transform: uppercase;
+}

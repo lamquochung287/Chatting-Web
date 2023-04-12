@@ -4,9 +4,9 @@ import { Person } from "./components/Person.js"
 import RegisterForm from "./components/RegisterForm.js";
 function App() {
   return (
-    <main>
+    <div>
       <LoginForm></LoginForm>
-    </main>
+    </div>
   );
 }
 

@@ -32,6 +32,10 @@ code {
   width: 30%;
 }
 
+.form-wrapper h1 {
+  text-align: center;
+}
+
 input,
 select {
   width: 100%;
@@ -48,7 +52,7 @@ select {
   padding: 14px 20px;
   width: 100%;
   border: 0px;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 .person-container {
@@ -98,7 +102,7 @@ img {
   padding: 14px 20px;
   width: 100%;
   border: 0px;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 .btn-success {
@@ -107,7 +111,7 @@ img {
   padding: 14px 20px;
   width: 100%;
   border: 0px;
-  border-radius: 5px;
+  border-radius: 20px;
 }
 
 .form-input-error {

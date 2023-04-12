@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { ButtonCustom } from './ButtonCustom';
 import { useGlobalContext } from '../context/AppContext';
+import { Link } from 'react-router-dom'
 
 const LoginForm = () => {
     const { isLoading, nameButton, styleButton, login, isError, messageError } = useGlobalContext()
@@ -79,7 +80,8 @@ const LoginForm = () => {
                         </span>
                     </div>
                 </form>
-                <label>Not have account? <a href="#" target="_blank">Register now</a></label>
+
+                <label>Not have account? <Link to="/register"><a href="#" target="_blank">Register now</a></Link></label>
             </div>
         </div >
     )

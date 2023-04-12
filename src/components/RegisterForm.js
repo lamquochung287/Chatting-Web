@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
+import { Link } from 'react-router-dom'
 
 const RegisterForm = () => {
     const [typePassword, setTypePassword] = useState('password')
@@ -92,6 +93,8 @@ const RegisterForm = () => {
                     </div>
                     <button className="btn-submit" type="submit">REGISTER</button>
                 </form>
+                <label>Have Account <Link to="/login"><a href="#" target="_blank">Login now</a></Link></label>
+
             </div>
         </div >
     )

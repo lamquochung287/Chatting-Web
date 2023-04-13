@@ -8,16 +8,19 @@ export const Person = (props) => {
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s"></img>
             </div>
             <div className="person-infor">
+
                 <div className="person-item">
-                    <span> Person Name: {props.name}</span>
+                    <span> Person Name: {props.username}</span>
                 </div>
                 <div className="person-item">
-                    <span> Person Age: {props.age}</span>
+                    <span> Person Age: {props.username}</span>
                 </div>
                 <div className="person-item">
-                    <span> Person Gender: {props.gender}</span>
+                    <span> Person Gender: {props.username}</span>
                 </div>
             </div>
         </div>
     )
 }
+
+export default Person

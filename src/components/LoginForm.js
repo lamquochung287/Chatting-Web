@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { ButtonCustom } from './ButtonCustom';
+import { Loading } from './Loading';
 import { useGlobalContext } from '../context/AppContext';
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
-    const { isLoading, nameButton, styleButton, login, isError, messageError } = useGlobalContext()
+    const navigate = useNavigate()
+    const { isLoading, isLogin, login, isError, messageError } = useGlobalContext()
     const [typePassword, setTypePassword] = useState('password')
     const [isShowPwd, setShowPwd] = useState(false)
     const [styleInput, setStyleInput] = useState(false)
@@ -48,9 +50,16 @@ const LoginForm = () => {
         e.preventDefault()
         checkEmpty()
         login(user)
-
-
     }
+
+    useEffect(() => {
+        if (isLogin) {
+            setTimeout(() => {
+                navigate("/person")
+            }, 2000)
+        }
+    }, [isLogin])
+
 
     return (
         <div className="form-container">
@@ -73,7 +82,16 @@ const LoginForm = () => {
                             )}
                         </button>
                     </div>
-                    <ButtonCustom process={styleButton} name={nameButton} disabled={isLoading}></ButtonCustom>
+                    <div>
+                        {isLoading === true ? (
+                            <Loading></Loading>
+                        )
+                            : (
+                                <input type="submit" className="form-input" value="Login" />
+                            )
+                        }
+
+                    </div>
                     <div>
                         <span className={isEmpty.isEmpty === true || isError === true ? "form-message-error" : ""}>
                             {isEmpty.message || messageError}
@@ -81,7 +99,7 @@ const LoginForm = () => {
                     </div>
                 </form>
 
-                <label>Not have account? <Link to="/register"><a href="#" target="_blank">Register now</a></Link></label>
+                <label>Not have account? <Link to="/register">Register now</Link></label>
             </div>
         </div >
     )

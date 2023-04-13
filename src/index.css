@@ -128,3 +128,22 @@ img {
 button {
   text-transform: uppercase;
 }
+
+.loading {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid rgb(167, 221, 219);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  animation: spin 2s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

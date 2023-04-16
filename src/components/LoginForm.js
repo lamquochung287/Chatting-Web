@@ -4,10 +4,13 @@ import { Loading } from './Loading';
 import { useGlobalContext } from '../context/AppContext';
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+import { loginUser } from '../features/login/loginSlice';
 
 const LoginForm = () => {
     const navigate = useNavigate()
-    const { isLoading, isLogin, login, isError, messageError } = useGlobalContext()
+    const dispatch = useDispatch()
+    const { isLoading, isLogin, isError, messageError } = useSelector((state) => state.login)
     const [typePassword, setTypePassword] = useState('password')
     const [isShowPwd, setShowPwd] = useState(false)
     const [styleInput, setStyleInput] = useState(false)
@@ -48,12 +51,12 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        dispatch(loginUser({ user: user }))
         checkEmpty()
-        login(user)
     }
 
     useEffect(() => {
-        if (isLogin) {
+        if (isLogin === true) {
             setTimeout(() => {
                 navigate("/person")
             }, 2000)
@@ -65,7 +68,7 @@ const LoginForm = () => {
         <div className="form-container">
             <div className="form-wrapper">
                 <h1>LOGIN FORM</h1>
-                <form onSubmit={handleSubmit}>
+                <form method="post" onSubmit={handleSubmit}>
                     <label htmlFor="username">Username</label>
                     <input type="text" id="username" placeholder="Enter username" name="username"
                         className={styleInput === true ? "form-input-error" : "form-input"}

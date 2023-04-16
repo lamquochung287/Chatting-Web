@@ -1,11 +1,10 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom'
-import { useGlobalContext } from '../context/AppContext';
-
+import { useGlobalContext } from '../context/AppContext'
+import { useSelector } from 'react-redux'
 const ProtectedRoute = ({ children }) => {
-    const { user } = useGlobalContext();
-    console.log(user)
-    if (!user) {
+    const { isLogin } = useSelector((state) => state.login)
+    if (isLogin === false) {
         return (
             <Navigate to="/login"></Navigate>
         )

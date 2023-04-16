@@ -10,7 +10,7 @@ const reducer = (state, action) => {
         return { ...state, isLoading: true }
     }
     if (action.type === LOGIN_SUCCESS) {
-        return { ...state, isLoading: false, isLogin: true, user: action.payloadUser }
+        return { ...state, isLoading: false, isLogin: true, user: action.payload.payLoadUser }
     }
     if (action.type === LOGIN_ERROR) {
         return { ...state, isLoading: false, isError: true, messageError: "Your username or password is incorrect" }

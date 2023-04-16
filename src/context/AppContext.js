@@ -7,7 +7,6 @@ import {
     LOGIN_ERROR,
 } from "./actions.js"
 
-const user = localStorage.getItem("user")
 const defaultState = {
     isLoading: false,
     nameButton: "Login",
@@ -15,7 +14,7 @@ const defaultState = {
     isError: false,
     isLogin: false,
     messageError: "",
-    user: user ? JSON.parse(user) : null,
+    user: null,
 }
 
 const AppContext = React.createContext();
@@ -24,21 +23,18 @@ const AppProvider = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, defaultState);
     const login = (user, action) => {
         dispatch({
-            type: LOGIN_BEGIN, payload: { isLoading: state.isLoading }
+            type: LOGIN_BEGIN
         })
-        setTimeout(async () => {
-            if (user.username === "quochung" && user.password === "123456") {
-                dispatch({
-                    type: LOGIN_SUCCESS, payload: { isLoading: state.isLoading, isLogin: state.isLogin, payloadUser: user }
-                })
-                localStorage.setItem("user", JSON.stringify(user))
-            }
-            else {
-                dispatch({
-                    type: LOGIN_ERROR, payload: { isLoading: state.isLoading, isError: state.isError, messageError: state.messageError }
-                })
-            }
-        }, 500)
+        if (user.username === "quochung" && user.password === "123456") {
+            dispatch({
+                type: LOGIN_SUCCESS, payload: { payLoadUser: user }
+            })
+        }
+        else {
+            dispatch({
+                type: LOGIN_ERROR
+            })
+        }
 
     }
     return (

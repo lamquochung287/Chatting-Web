@@ -3,11 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginForm from "./components/LoginForm.js"
 import RegisterForm from "./components/RegisterForm.js";
 import ProtectedRoute from "./pages/ProtectedRoute.js";
-import { useGlobalContext } from './context/AppContext';
 import Person from "./components/Person.js";
 
 function App() {
-  const { user } = useGlobalContext()
   return (
     <BrowserRouter>
       <Routes>

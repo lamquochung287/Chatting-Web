@@ -90,7 +90,7 @@ const LoginForm = () => {
                             <Loading></Loading>
                         )
                             : (
-                                <input type="submit" className="form-input" value="Login" />
+                                <button type="submit" className="btn-submit">Login</button>
                             )
                         }
 

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { loginUser } from '../features/login/loginSlice';
+import { toast } from 'react-toastify';
 
 const LoginForm = () => {
     const navigate = useNavigate()
@@ -13,26 +14,11 @@ const LoginForm = () => {
     const { isLoading, isLogin, isError, messageError } = useSelector((state) => state.login)
     const [typePassword, setTypePassword] = useState('password')
     const [isShowPwd, setShowPwd] = useState(false)
-    const [styleInput, setStyleInput] = useState(false)
-    const [isEmpty, setEmpty] = useState({})
 
     const [user, setUser] = useState({
         username: "",
         password: "",
     })
-
-    const checkEmpty = () => {
-        if (!user.username || !user.password) {
-            setEmpty({ isEmpty: true, message: "Please enter username and password field" })
-            setStyleInput(true)
-            return
-        }
-        else {
-            setEmpty({ isEmpty: false })
-            setStyleInput(false)
-            return
-        }
-    }
 
     const handleInput = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value })
@@ -52,16 +38,20 @@ const LoginForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         dispatch(loginUser({ user: user }))
-        checkEmpty()
     }
 
     useEffect(() => {
+        if (isError) {
+            toast.error(messageError)
+            return;
+        }
         if (isLogin === true) {
+            toast.success("Login successful")
             setTimeout(() => {
                 navigate("/person")
             }, 2000)
         }
-    }, [isLogin])
+    }, [isLogin, isError])
 
 
     return (
@@ -71,11 +61,11 @@ const LoginForm = () => {
                 <form method="post" onSubmit={handleSubmit}>
                     <label htmlFor="username">Username</label>
                     <input type="text" id="username" placeholder="Enter username" name="username"
-                        className={styleInput === true ? "form-input-error" : "form-input"}
+                        className="form-input"
                         value={user.username} onChange={handleInput}></input>
                     <label htmlFor="password">Passwords</label>
                     <div className="form-control-pass">
-                        <input type={typePassword} id="password" placeholder="Enter password" name="password" className={styleInput === true ? "form-input-error" : "form-input"}
+                        <input type={typePassword} id="password" placeholder="Enter password" name="password" className="form-input"
                             value={user.password} onChange={handleInput}></input>
                         <button type="button" className="btn-show-pass" onClick={handleShowPassword}>
                             {isShowPwd ? (
@@ -94,11 +84,6 @@ const LoginForm = () => {
                             )
                         }
 
-                    </div>
-                    <div>
-                        <span className={isEmpty.isEmpty === true || isError === true ? "form-message-error" : ""}>
-                            {isEmpty.message || messageError}
-                        </span>
                     </div>
                 </form>
 

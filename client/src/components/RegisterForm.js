@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { registerUser } from '../features/register/registerSlice';
 import { Loading } from './Loading';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 const RegisterForm = () => {
     const navigate = useNavigate()
     const { isLoading, isError, messageError, isSuccess } = useSelector((state) => state.register)
@@ -55,12 +57,16 @@ const RegisterForm = () => {
         dispatch(registerUser(user))
     }
     useEffect(() => {
+        if (isError) {
+            toast.error(messageError)
+        }
         if (isSuccess === true) {
+            toast.success("Register success after 2s will navigate login page")
             setTimeout(() => {
                 navigate("/login")
             }, 2000)
         }
-    }, [isSuccess])
+    }, [isSuccess, isError])
     return (
         <div className="form-container">
             <div className="form-wrapper">
@@ -107,11 +113,6 @@ const RegisterForm = () => {
                         }
                     </div>
                 </form>
-                <div>
-                    <span className={isError === true ? "form-message-error" : ""}>
-                        {messageError}
-                    </span>
-                </div>
                 <label>Have Account <Link to="/login">Login now</Link></label>
 
             </div>

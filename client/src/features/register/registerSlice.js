@@ -25,6 +25,7 @@ const registerSlice = createSlice({
             state.isLoading = true
         },
         [registerUser.fulfilled]: (state, { payload }) => {
+            state.isError = false
             state.isLoading = false
             state.isSuccess = true
         },

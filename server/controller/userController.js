@@ -4,14 +4,9 @@ import { StatusCodes } from "http-status-codes"
 const login = async (req, res) => {
     const { username, password } = req.body
     //Check empty 
-    if (!username && !password) {
+    if (!username || !password) {
         return res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Please enter username or password' })
     }
-    if (!username)
-        return res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Please enter username' })
-    if (!password)
-        return res.status(StatusCodes.BAD_REQUEST).json({ msg: 'Please enter password' })
-
     // find user in database
     const user = await User.findOne({ username: username })
     if (user === null) {
@@ -20,7 +15,7 @@ const login = async (req, res) => {
     // compare password hash
     const isMatch = await user.comparePassword(password)
     if (!isMatch) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Invalid Password" })
+        return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Password wrong" })
     }
     return res.status(StatusCodes.OK).json({ user: user, msg: "Login success" })
 }

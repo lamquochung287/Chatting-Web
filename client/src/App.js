@@ -4,7 +4,8 @@ import LoginForm from "./components/LoginForm.js"
 import RegisterForm from "./components/RegisterForm.js";
 import ProtectedRoute from "./pages/ProtectedRoute.js";
 import Person from "./components/Person.js";
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 function App() {
   return (
     <BrowserRouter>
@@ -17,6 +18,7 @@ function App() {
           </ProtectedRoute>
         } />
       </Routes>
+      <ToastContainer position="top-center" />
     </BrowserRouter>
   );
 }

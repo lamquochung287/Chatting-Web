@@ -15,7 +15,7 @@ export const loginUser = createAsyncThunk('users/login', async (input, thunkAPI)
         const resp = await axios.post("/api/users/login", { username: input.user.username, password: input.user.password })
         return resp.data
     } catch (error) {
-        return thunkAPI.rejectWithValue("Username or Password is not correct")
+        return thunkAPI.rejectWithValue(error.response.data)
 
     }
 })
@@ -27,6 +27,7 @@ const loginSlice = createSlice({
             state.isLoading = true;
         },
         [loginUser.fulfilled]: (state, { payload }) => {
+            state.isError = false
             state.isLogin = true
             const user = payload.user;
             state.user = user
@@ -36,7 +37,7 @@ const loginSlice = createSlice({
         [loginUser.rejected]: (state, { payload }) => {
             state.isLoading = false
             state.isError = true;
-            state.messageError = payload
+            state.messageError = payload.msg
         }
     }
 

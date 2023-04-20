@@ -6,8 +6,9 @@ import styled from 'styled-components'
 const ContainerStyled = styled.div`
     display:flex;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(82,38,83);
+    border-bottom: 1px outset rgba(82,38,83);
     padding: 1rem;
+    height: inherit;
 `
 
 
@@ -15,8 +16,8 @@ const AvatarStyled = styled(Avatar)`
     margin-right: 1rem;
 `
 
-export const Friend = (friend) => {
-    const user = friend
+export const Friend = (props) => {
+    const user = props.name
 
     return (
         <ContainerStyled>

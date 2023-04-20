@@ -9,8 +9,10 @@ import { toast } from 'react-toastify';
 const ContainerStyled = styled.div`
     display:flex;
     justify-content: space-between;
-    border-bottom: 1px solid rgba(82,38,83);
+    width: inherit;
     padding: 1rem;
+    box-shadow: 2px 0px 2px 0px rgba(16, 1, 4, 0.3);
+
 `
 
 const ButtonStyled = styled(Button)`
@@ -21,7 +23,6 @@ const AvatarStyled = styled(Avatar)`
     margin-right: 1rem;
 `
 
-// props: if slidebar component get information of user else chatbar get information of friend chatting hidden log out button
 export const User = () => {
     const { user } = useSelector((state) => state.login)
     const dispatch = useDispatch()
@@ -39,6 +40,7 @@ export const User = () => {
             <div>
                 <ButtonStyled onClick={handleLogout}>Log out</ButtonStyled>
             </div>
+
         </ContainerStyled>
 
 

@@ -13,9 +13,10 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/" element={
-          <ProtectedRoute>
-            <HomePage />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          //   <HomePage />
+          // </ProtectedRoute>
+          <HomePage></HomePage>
         } />
       </Routes>
       <ToastContainer position="top-center" />

@@ -41,6 +41,10 @@ const LoginForm = () => {
     }
 
     useEffect(() => {
+        document.title = 'Login Page'
+    }, [])
+
+    useEffect(() => {
         if (isError) {
             toast.error(messageError)
             return;
@@ -48,7 +52,7 @@ const LoginForm = () => {
         if (isLogin === true) {
             toast.success("Login successful")
             setTimeout(() => {
-                navigate("/person")
+                navigate("/")
             }, 2000)
         }
     }, [isLogin, isError])

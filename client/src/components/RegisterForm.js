@@ -57,6 +57,9 @@ const RegisterForm = () => {
         dispatch(registerUser(user))
     }
     useEffect(() => {
+        document.title = 'Register Page'
+    }, [])
+    useEffect(() => {
         if (isError) {
             toast.error(messageError)
         }

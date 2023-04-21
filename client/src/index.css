@@ -60,6 +60,8 @@ select {
 .person-container {
   display: flex;
   flex-direction: row;
+  height: 10vh;
+  width: 100%;
 }
 
 .person-infor {
@@ -68,7 +70,7 @@ select {
 }
 
 .person-item {
-  padding: 5px;
+  padding: 2px;
 }
 
 .person-img {

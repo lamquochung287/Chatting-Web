@@ -14,10 +14,7 @@ export const Person = () => {
                     <span> Person Name: {user.username}</span>
                 </div>
                 <div className="person-item">
-                    <span> Person Age: {user.username}</span>
-                </div>
-                <div className="person-item">
-                    <span> Person Gender: {user.username}</span>
+                    <span> Lorem i?</span>
                 </div>
             </div>
         </div>

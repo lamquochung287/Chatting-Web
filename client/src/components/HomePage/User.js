@@ -11,7 +11,7 @@ const ContainerStyled = styled.div`
     justify-content: space-between;
     width: inherit;
     padding: 1rem;
-    box-shadow: 2px 0px 2px 0px rgba(16, 1, 4, 0.3);
+    box-shadow: 0px 0px 2px 0px rgba(16, 1, 4, 0.3);
 
 `
 

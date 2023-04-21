@@ -32,6 +32,7 @@ const loginSlice = createSlice({
     extraReducers: {
         [loginUser.pending]: (state) => {
             state.isLoading = true;
+            state.isError = false;
         },
         [loginUser.fulfilled]: (state, { payload }) => {
             state.isError = false

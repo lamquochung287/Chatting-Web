@@ -10,13 +10,26 @@ const SlideBarStyled = styled.div`
     box-shadow: 2px 0px 2px 0px rgba(0, 0, 0, 0.3);
 `
 
+const HeaderStyled = styled.div`
+    height: 7vh;
+`
+
+const ContentStyled = styled.div`
+    height: 85vh;
+    margin: 1rem;
+`
+
 export const SlideBar = () => {
     return (
         <SlideBarStyled>
-            <Row>
-                <Col span={24}><User /></Col>
-                <Col span={24}><PanelFriend></PanelFriend></Col>
-            </Row>
+            <HeaderStyled>
+
+                <User></User>
+            </HeaderStyled>
+            <ContentStyled>
+
+                <PanelFriend />
+            </ContentStyled>
         </SlideBarStyled>
     )
 }

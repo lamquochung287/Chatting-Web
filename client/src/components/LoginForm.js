@@ -44,10 +44,10 @@ const LoginForm = () => {
         document.title = 'Login Page'
     }, [])
 
+
     useEffect(() => {
         if (isError) {
             toast.error(messageError)
-            return;
         }
         if (isLogin === true) {
             toast.success("Login successful")

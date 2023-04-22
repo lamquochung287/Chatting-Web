@@ -5,6 +5,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config()
 import connect from './db/connect.js'
+import { Server } from "socket.io"
 
 
 app.use(express.json())
@@ -25,4 +26,29 @@ const start = async () => {
     }
 }
 
+const io = new Server(startServer, {
+    cors: {
+        origin: "http://localhost:3000",
+        method: ["GET", "POST"],
+    }
+})
+
+let listFriend = new Set()
+io.on("connection", (socket) => {
+    console.log("Connection ", socket.id)
+    socket.on("setup", (user) => {
+        socket.join(user)
+        listFriend.add(user.username)
+        io.emit("setup", [...listFriend])
+    })
+    socket.on("chat_with", (friendName) => {
+        socket.join(friendName)
+        console.log("Chat with friend ", friendName)
+
+    })
+
+    socket.on("disconnect", () => {
+        console.log("Disconnect  ", socket.id)
+    })
+})
 start()

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Avatar, Button, Typography } from 'antd'
 import styled from 'styled-components'
@@ -23,13 +23,18 @@ const AvatarStyled = styled(Avatar)`
     margin-right: 1rem;
 `
 
-export const User = () => {
+export const User = ({ socket }) => {
     const { user } = useSelector((state) => state.login)
     const dispatch = useDispatch()
     const handleLogout = () => {
         toast.success(`${user.username} log out success`)
         dispatch(logout())
     }
+
+    useEffect(() => {
+        socket.emit("setup", user)
+        socket.on("connection")
+    }, [])
     return (
         <ContainerStyled>
 

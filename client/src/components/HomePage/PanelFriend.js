@@ -1,5 +1,5 @@
-import React from 'react'
-import { Input, Col, Row } from 'antd'
+import React, { useEffect } from 'react'
+import { Input } from 'antd'
 import styled from 'styled-components'
 import Person from '../Person'
 
@@ -20,7 +20,11 @@ const WrapperListStyled = styled.div`
     display:flex;
     flex-direction: column;
 `
-export const PanelFriend = () => {
+export const PanelFriend = ({ socket }) => {
+    const ListFriend = socket
+    useEffect(() => {
+        console.log(ListFriend)
+    }, [ListFriend])
     return (
         <PanelFriendStyled>
 
@@ -33,19 +37,6 @@ export const PanelFriend = () => {
 
                 <PersonListStyled>
                     <Person />
-                    <Person />
-
-                    <Person />
-                    <Person />
-                    <Person />
-
-                    <Person />
-
-                    <Person />
-                    <Person />
-                    <Person />
-                    <Person />
-
                 </PersonListStyled>
             </WrapperListStyled>
 

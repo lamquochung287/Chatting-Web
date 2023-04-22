@@ -19,16 +19,14 @@ const ContentStyled = styled.div`
     margin: 1rem;
 `
 
-export const SlideBar = () => {
+export const SlideBar = ({ socket }) => {
     return (
         <SlideBarStyled>
             <HeaderStyled>
-
-                <User></User>
+                <User socket={socket}></User>
             </HeaderStyled>
             <ContentStyled>
-
-                <PanelFriend />
+                <PanelFriend socket={socket} />
             </ContentStyled>
         </SlideBarStyled>
     )

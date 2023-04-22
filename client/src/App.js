@@ -6,6 +6,9 @@ import ProtectedRoute from "./pages/ProtectedRoute.js";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import HomePage from "./pages/HomePage.js";
+
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -13,10 +16,10 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/" element={
-          // <ProtectedRoute>
-          //   <HomePage />
-          // </ProtectedRoute>
-          <HomePage></HomePage>
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+          // <HomePage></HomePage>
         } />
       </Routes>
       <ToastContainer position="top-center" />

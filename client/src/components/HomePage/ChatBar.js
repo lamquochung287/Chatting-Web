@@ -33,7 +33,7 @@ const FormStyled = styled(Form)`
     justify-content: space-between;
     margin: 0 2rem 1rem 2rem;
 `
-export const ChatBar = () => {
+export const ChatBar = ({ socket }) => {
     return (
         <WrapperStyled>
 

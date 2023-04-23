@@ -1,8 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-export const Person = () => {
-    const { user } = useSelector((state) => state.login)
+export const Person = ({ name }) => {
     return (
         <div className='person-container'>
             <div className='person-img'>
@@ -11,7 +10,7 @@ export const Person = () => {
             <div className="person-infor">
 
                 <div className="person-item">
-                    <span> Person Name: {user.username}</span>
+                    <span> Person Name: {name}</span>
                 </div>
                 <div className="person-item">
                     <span> Lorem i?</span>

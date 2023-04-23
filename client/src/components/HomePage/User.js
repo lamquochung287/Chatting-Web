@@ -27,6 +27,7 @@ export const User = ({ socket }) => {
     const { user } = useSelector((state) => state.login)
     const dispatch = useDispatch()
     const handleLogout = () => {
+        socket.emit("offline", user)
         toast.success(`${user.username} log out success`)
         dispatch(logout())
     }

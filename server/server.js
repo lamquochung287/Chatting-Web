@@ -39,15 +39,24 @@ io.on("connection", (socket) => {
     socket.on("setup", (user) => {
         socket.join(user)
         listFriend.add(user.username)
-        io.emit("setup", [...listFriend])
+        socket.emit("data", [...listFriend])
+        socket.emit("update_Status", true)
+        console.log(listFriend)
     })
+
     socket.on("chat_with", (friendName) => {
         socket.join(friendName)
         console.log("Chat with friend ", friendName)
 
     })
 
-    socket.on("disconnect", () => {
+    socket.on("offline", (user) => {
+        listFriend.delete(user.username)
+        console.log(listFriend)
+    })
+
+    socket.on("disconnect", (user) => {
+        listFriend.delete(user.username)
         console.log("Disconnect  ", socket.id)
     })
 })

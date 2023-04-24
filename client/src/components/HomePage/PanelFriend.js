@@ -3,6 +3,7 @@ import { Input } from 'antd'
 import styled from 'styled-components'
 import Person from '../Person'
 import { useSelector } from 'react-redux'
+import { setObjectName } from '../../features/chatObject/objectSlice'
 
 const PanelFriendStyled = styled.div`
     height: inherit;
@@ -24,22 +25,21 @@ const WrapperListStyled = styled.div`
 export const PanelFriend = ({ socket }) => {
     const { user } = useSelector((state) => state.login)
     const [listFriend, setListFriend] = useState()
-    const [updateListFriend, setUpdateFriend] = useState(false)
 
+    const selectFriend = (friend) => {
+        socket.on("chat_with", friend)
+        localStorage.setItem("chatWith", friend)
+        console.log(friend)
+    }
 
     useEffect(() => {
-        socket.on("data", (data) => {
+        socket.on("friends", (data) => {
             let list = data
-            console.log(data)
             const listData = list.filter(i => i !== user.username)
-            console.log(listData)
-            setUpdateFriend(true)
             setListFriend(listData)
         })
-        return () => {
-            setUpdateFriend(false)
-        }
-    }, [updateListFriend])
+    })
+
     return (
         <PanelFriendStyled>
 
@@ -53,8 +53,7 @@ export const PanelFriend = ({ socket }) => {
                 <PersonListStyled>
                     {
                         listFriend?.map((friend, index) =>
-
-                            <Person key={index} name={friend} ></Person>
+                            <Person key={index} name={friend} onClick={(friend) => selectFriend(friend)} />
                         )}
                 </PersonListStyled>
             </WrapperListStyled>

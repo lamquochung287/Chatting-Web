@@ -33,9 +33,8 @@ export const User = ({ socket }) => {
     }
 
     useEffect(() => {
-        socket.emit("setup", user)
-        socket.on("connection")
-    }, [])
+        socket.emit("login", user)
+    }, [user])
     return (
         <ContainerStyled>
 

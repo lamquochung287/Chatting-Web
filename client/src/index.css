@@ -62,6 +62,7 @@ select {
   flex-direction: row;
   height: 10vh;
   width: 100%;
+  cursor: pointer;
 }
 
 .person-infor {

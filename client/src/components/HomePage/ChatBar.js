@@ -1,5 +1,5 @@
-import React from 'react'
-import { Row, Col, Input, Form, List, Button } from "antd"
+import React, { useEffect, useState } from 'react'
+import { Input, Form, Button, Typography } from "antd"
 import Friend from '../Friend'
 import styled from 'styled-components'
 import { SendOutlined } from '@ant-design/icons'
@@ -14,7 +14,13 @@ const ListMessageStyled = styled.div`
     max-height: 100%;
     overflow-y: auto;
 `
-
+const TypographyStyled = styled(Typography.Text)`
+    display: flex;
+    justify-content: center;
+    font-style: bold;
+    color: gray;
+    font-size: 2rem;
+`
 
 const ContentStyled = styled.div`
     height: 75vh;
@@ -34,40 +40,32 @@ const FormStyled = styled(Form)`
     margin: 0 2rem 1rem 2rem;
 `
 export const ChatBar = ({ socket }) => {
+    const chatWithFriend = localStorage.getItem("chatWith")
+    const [listMessage, setListMessage] = useState()
+    useEffect(() => {
+
+    }, [chatWithFriend])
     return (
         <WrapperStyled>
 
+            {chatWithFriend ?
+                <>
+                    <HeaderStyled>
+                        <Friend name={chatWithFriend}></Friend>
+                    </HeaderStyled><ContentStyled >
+                        <ListMessageStyled>
+                            <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
+                        </ListMessageStyled>
+                        <FormStyled>
+                            <Input></Input>
+                            <Button style={{ border: 'none' }}><SendOutlined></SendOutlined></Button>
+                        </FormStyled>
 
-            <HeaderStyled>
-                <Friend name="AAAAAAAAAA"></Friend>
-
-            </HeaderStyled>
-
-            <ContentStyled>
-                <ListMessageStyled>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: false }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: false }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: false }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: false }}></Message>
-                    <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
-                </ListMessageStyled>
-                <FormStyled>
-                    <Input></Input>
-                    <Button style={{ border: 'none' }}><SendOutlined></SendOutlined></Button>
-                </FormStyled>
-
-            </ContentStyled>
-
-
-
-
+                    </ContentStyled>
+                </>
+                :
+                <TypographyStyled> Choose Friend Online to chat with</TypographyStyled>
+            }
         </WrapperStyled>
     )
 }

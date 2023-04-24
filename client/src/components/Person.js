@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-export const Person = ({ name }) => {
+export const Person = ({ name, onCLick }) => {
     return (
-        <div className='person-container'>
+        <div className='person-container' onClick={onCLick}>
             <div className='person-img'>
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s"></img>
             </div>

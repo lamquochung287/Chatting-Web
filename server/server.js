@@ -34,13 +34,16 @@ const io = new Server(startServer, {
 })
 
 let listFriend = new Set()
+let message = [{}]
+
 io.on("connection", (socket) => {
     console.log("Connection ", socket.id)
-    socket.on("setup", (user) => {
-        socket.join(user)
+    socket.on("login", (user) => {
         listFriend.add(user.username)
-        socket.emit("data", [...listFriend])
-        socket.emit("update_Status", true)
+        // update list friend of user have been keeping online
+        socket.broadcast.emit("friends", [...listFriend])
+        // get list friend of user have login
+        socket.emit("friends", [...listFriend])
         console.log(listFriend)
     })
 
@@ -52,11 +55,14 @@ io.on("connection", (socket) => {
 
     socket.on("offline", (user) => {
         listFriend.delete(user.username)
+        socket.broadcast.emit("friends", [...listFriend])
         console.log(listFriend)
     })
 
     socket.on("disconnect", (user) => {
         listFriend.delete(user.username)
+        console.log("disconnet", listFriend)
+        socket.broadcast.emit("friends", [...listFriend])
         console.log("Disconnect  ", socket.id)
     })
 })

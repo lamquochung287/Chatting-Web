@@ -1,14 +1,16 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Button } from 'antd'
+import styled from 'styled-components'
 
-export const Person = ({ name, onCLick }) => {
+
+export const Person = ({ name, onClick }) => {
     return (
-        <div className='person-container' onClick={onCLick}>
+        <div className='person-container'>
             <div className='person-img'>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s"></img>
+                <img style={{ width: '100%', height: '100%' }} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s"></img>
             </div>
             <div className="person-infor">
-
                 <div className="person-item">
                     <span> Person Name: {name}</span>
                 </div>

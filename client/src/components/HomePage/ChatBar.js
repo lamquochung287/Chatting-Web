@@ -4,6 +4,7 @@ import Friend from '../Friend'
 import styled from 'styled-components'
 import { SendOutlined } from '@ant-design/icons'
 import Message from './Message'
+import { useSelector } from 'react-redux'
 
 const HeaderStyled = styled.div`
     height: 10vh;
@@ -40,18 +41,18 @@ const FormStyled = styled(Form)`
     margin: 0 2rem 1rem 2rem;
 `
 export const ChatBar = ({ socket }) => {
-    const chatWithFriend = localStorage.getItem("chatWith")
+    const { objectName } = useSelector((state) => state.chatting)
     const [listMessage, setListMessage] = useState()
     useEffect(() => {
 
-    }, [chatWithFriend])
+    }, [objectName])
     return (
         <WrapperStyled>
 
-            {chatWithFriend ?
+            {objectName ?
                 <>
                     <HeaderStyled>
-                        <Friend name={chatWithFriend}></Friend>
+                        <Friend name={objectName}></Friend>
                     </HeaderStyled><ContentStyled >
                         <ListMessageStyled>
                             <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>

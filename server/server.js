@@ -33,18 +33,17 @@ const io = new Server(startServer, {
     }
 })
 
-let listFriend = new Set()
+const onlineUsers = {}
 let message = [{}]
 
 io.on("connection", (socket) => {
     console.log("Connection ", socket.id)
     socket.on("login", (user) => {
-        listFriend.add(user.username)
+        onlineUsers[socket.id] = { username: user.username }
         // update list friend of user have been keeping online
-        socket.broadcast.emit("friends", [...listFriend])
+        socket.broadcast.emit("friends", Object.values(onlineUsers))
         // get list friend of user have login
-        socket.emit("friends", [...listFriend])
-        console.log(listFriend)
+        socket.emit("friends", Object.values(onlineUsers))
     })
 
     socket.on("chat_with", (friendName) => {
@@ -53,16 +52,15 @@ io.on("connection", (socket) => {
 
     })
 
-    socket.on("offline", (user) => {
-        listFriend.delete(user.username)
-        socket.broadcast.emit("friends", [...listFriend])
-        console.log(listFriend)
+    socket.on("offline", () => {
+        delete onlineUsers[socket.id]
+        socket.broadcast.emit("friends", Object.values(onlineUsers))
+        console.log(onlineUsers)
     })
 
-    socket.on("disconnect", (user) => {
-        listFriend.delete(user.username)
-        console.log("disconnet", listFriend)
-        socket.broadcast.emit("friends", [...listFriend])
+    socket.on("disconnect", () => {
+        delete onlineUsers[socket.id]
+        socket.broadcast.emit("friends", Object.values(onlineUsers))
         console.log("Disconnect  ", socket.id)
     })
 })

@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-const objectName = localStorage.getItem("chatWith");
+// const objectName = localStorage.getItem("chatWith");
 
 const initialState = {
-    objectName: objectName ? objectName : null,
+    objectName: null,
     isLoading: false,
     chatList: [],
 }
@@ -15,9 +15,7 @@ export const objectSlice = createSlice({
     initialState,
     reducers: {
         setObjectName: (state, { payload }) => {
-            console.log(payload);
             state.objectName = payload;
-            localStorage.setItem("chatWith", payload);
         }
     }
 

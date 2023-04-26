@@ -39,17 +39,19 @@ let message = [{}]
 io.on("connection", (socket) => {
     console.log("Connection ", socket.id)
     socket.on("login", (user) => {
-        onlineUsers[socket.id] = { username: user.username }
+        onlineUsers[socket.id] = { serverId: socket.id, username: user.username }
         // update list friend of user have been keeping online
         socket.broadcast.emit("friends", Object.values(onlineUsers))
         // get list friend of user have login
         socket.emit("friends", Object.values(onlineUsers))
     })
 
-    socket.on("chat_with", (friendName) => {
-        socket.join(friendName)
+    socket.on("chat_with", (friendId, friendName) => {
+        socket.join(friendId)
+        const senderId = socket.id
+        const sender = onlineUsers[socket.id]
+        const recipient = io.sockets.connected[friendId]
         console.log("Chat with friend ", friendName)
-
     })
 
     socket.on("offline", () => {

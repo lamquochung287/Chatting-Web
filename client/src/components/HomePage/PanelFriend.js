@@ -30,8 +30,8 @@ export const PanelFriend = ({ socket }) => {
     const { user } = useSelector((state) => state.login)
     const [listFriend, setListFriend] = useState()
     const dispatch = useDispatch()
-    const selectFriend = (friend) => {
-        socket.on("chat_with", friend)
+    const selectFriend = (id, friend) => {
+        socket.emit("chat_with", id, friend)
         dispatch(setObjectName(friend))
     }
 
@@ -50,9 +50,9 @@ export const PanelFriend = ({ socket }) => {
 
                 <PersonListStyled>
                     {
-                        listFriend?.map((friend, index) =>
-                            <ButtonStyled key={index} onClick={() => { selectFriend(friend.username) }}>
-                                <Person key={index} name={friend.username} />
+                        listFriend?.map((friend) =>
+                            <ButtonStyled key={friend.serverId} onClick={() => { selectFriend(friend.serverId, friend.username) }}>
+                                <Person key={friend.serverId} name={friend.username} />
                             </ButtonStyled>
                         )}
                 </PersonListStyled>

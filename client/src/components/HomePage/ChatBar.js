@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { SendOutlined } from '@ant-design/icons'
 import Message from './Message'
 import { useSelector } from 'react-redux'
+import { useSubmit } from 'react-router-dom'
 
 const HeaderStyled = styled.div`
     height: 10vh;
@@ -42,7 +43,19 @@ const FormStyled = styled(Form)`
 `
 export const ChatBar = ({ socket }) => {
     const { objectName } = useSelector((state) => state.chatting)
-    const [listMessage, setListMessage] = useState()
+    const [form] = Form.useForm()
+    const [message, setMessage] = useState("")
+
+    const handleChange = (e) => {
+        setMessage(e.target.value)
+    }
+    const handleSubmit = (e) => {
+        form.resetFields();
+        socket.emit("send_message", message)
+        console.log(message)
+    }
+
+
     useEffect(() => {
 
     }, [objectName])
@@ -57,9 +70,13 @@ export const ChatBar = ({ socket }) => {
                         <ListMessageStyled>
                             <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
                         </ListMessageStyled>
-                        <FormStyled>
-                            <Input></Input>
-                            <Button style={{ border: 'none' }}><SendOutlined></SendOutlined></Button>
+                        <FormStyled onFinish={handleSubmit} form={form}>
+                            <Form.Item style={{ width: '100%' }} name="message">
+                                <Input placeholder="Enter message to send" type="text" onChange={handleChange}></Input>
+                            </Form.Item>
+                            <Form.Item>
+                                <Button htmlType="submit" style={{ border: 'none' }}><SendOutlined></SendOutlined></Button>
+                            </Form.Item>
                         </FormStyled>
 
                     </ContentStyled>

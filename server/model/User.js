@@ -14,7 +14,20 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: 'String',
         unique: true
-    }
+    },
+    friendList: [
+        {
+            friendName: String,
+        }],
+    chatHistory: [
+        {
+            receiver: String,
+            messages: [{
+                content: String,
+                date: { type: Date, default: Date.now() },
+            }],
+        }
+    ]
 })
 
 UserSchema.methods.comparePassword = async function (inputPassword) {

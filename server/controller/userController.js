@@ -17,6 +17,7 @@ const login = async (req, res) => {
     if (!isMatch) {
         return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Password wrong" })
     }
+    req.session.username = username
     return res.status(StatusCodes.OK).json({ user: user, msg: "Login success" })
 }
 
@@ -48,6 +49,37 @@ const register = async (req, res) => {
     })
     return res.status(StatusCodes.CREATED).json({ user: user, msg: "Create user success" })
 
+}
+
+const addFriend = async (req, res) => {
+    const username = req.session.username
+    const { friendName } = req.body
+    const findUser = await User.findOne({ username: username })
+    const findFriend = await User.findOne({ username: friendName })
+
+    if (!findUser) {
+        return res.status(StatusCodes.NOT_FOUND).json({ msg: `User not found ${username}` })
+    }
+    if (!findFriend) {
+        return res.status(StatusCodes.NOT_FOUND).json({ msg: `Friend not found ${friendName}` })
+    }
+    if ((findUser.friendList).find(friend => friend.friendName === friendName)) {
+        return res.status(StatusCodes.BAD_REQUEST).json({ msg: "You added this friend" })
+    }
+
+    findUser.friendList.push({ friendName: friendName })
+    findUser.save()
+    return res.status(StatusCodes.CREATED).json({ msg: "Add friend successfully", user: findUser })
 
 }
-export { login, register }
+
+const getListFriends = async (req, res) => {
+    const username = req.session.username
+    const findUser = await User.findOne({ username: username })
+    if (!findUser) {
+        return res.status(StatusCodes.NOT_FOUND).json({ msg: `User not found ${username}` })
+    }
+    const listFriends = findUser.friendList
+    return res.status(StatusCodes.OK).json({ msg: `Get friend list ${username} success`, friendList: listFriends })
+}
+export { login, register, addFriend, getListFriends }

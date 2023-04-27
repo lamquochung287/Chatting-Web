@@ -1,16 +1,22 @@
 import express from 'express'
 const app = express();
 import userRoutes from './routes/userRoutes.js'
+import chatRoutes from './routes/chatRoutes.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config()
 import connect from './db/connect.js'
 import { Server } from "socket.io"
-
+import session from "express-session"
 
 app.use(express.json())
 app.use(cors())
+app.use(session({
+    secret: "Secret key"
+}))
 app.use("/api/users", userRoutes);
+app.use("/api/chats", chatRoutes);
+
 
 const startServer = app.listen(5000, () => {
     console.log('listening on port 5000')

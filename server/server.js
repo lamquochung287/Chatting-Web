@@ -54,10 +54,14 @@ io.on("connection", (socket) => {
 
     socket.on("chat_with", (friendId, friendName) => {
         socket.join(friendId)
-        const senderId = socket.id
-        const sender = onlineUsers[socket.id]
-        const recipient = io.sockets.connected[friendId]
+        // const senderId = socket.id
+        // const sender = onlineUsers[socket.id]
+        // const recipient = io.sockets.connected[friendId]
         console.log("Chat with friend ", friendName)
+    })
+
+    socket.on("send_message", (data) => {
+        socket.to(data.id).emit("receive_message", data)
     })
 
     socket.on("offline", () => {

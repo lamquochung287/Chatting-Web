@@ -4,8 +4,9 @@ import Friend from '../Friend'
 import styled from 'styled-components'
 import { SendOutlined } from '@ant-design/icons'
 import Message from './Message'
-import { useSelector } from 'react-redux'
-import { useSubmit } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { sendMessage } from '../../features/chatObject/objectSlice'
+import axios from 'axios'
 
 const HeaderStyled = styled.div`
     height: 10vh;
@@ -42,23 +43,36 @@ const FormStyled = styled(Form)`
     margin: 0 2rem 1rem 2rem;
 `
 export const ChatBar = ({ socket }) => {
-    const { objectName } = useSelector((state) => state.chatting)
+    const { objectName, isNewMessage } = useSelector((state) => state.chatting)
     const [form] = Form.useForm()
     const [message, setMessage] = useState("")
+    const [listMessages, setListMessages] = useState([])
+    const dispatch = useDispatch()
 
     const handleChange = (e) => {
         setMessage(e.target.value)
     }
     const handleSubmit = (e) => {
         form.resetFields();
-        socket.emit("send_message", message)
+        dispatch(sendMessage(objectName, message))
         console.log(message)
     }
-
+    const getMessage = async () => {
+        try {
+            const resp = await axios.post(`/api/chats/getMessage/${objectName}`)
+            const listMessage = resp.data.listMessage
+            if (listMessage.length > 0) {
+                setListMessages(listMessage)
+            }
+        } catch (error) {
+            console.log(error)
+            return error
+        }
+    }
 
     useEffect(() => {
-
-    }, [objectName])
+        getMessage()
+    }, [objectName, isNewMessage])
     return (
         <WrapperStyled>
 
@@ -68,6 +82,10 @@ export const ChatBar = ({ socket }) => {
                         <Friend name={objectName}></Friend>
                     </HeaderStyled><ContentStyled >
                         <ListMessageStyled>
+                            {listMessages ?
+                                <Message value={{}} />
+                                : ""
+                            }
                             <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
                         </ListMessageStyled>
                         <FormStyled onFinish={handleSubmit} form={form}>

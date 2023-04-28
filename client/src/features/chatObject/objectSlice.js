@@ -7,8 +7,18 @@ import axios from "axios";
 const initialState = {
     objectName: null,
     isLoading: false,
+    isNewMessage: false,
     chatList: [],
 }
+
+export const sendMessage = createAsyncThunk("chats/sendMessage", async (input, thunkAPI) => {
+    try {
+        const resp = await axios.post("/api/chats/sendMessage", { receiveName: input.receive, message: input.message })
+        return resp.data
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.data)
+    }
+})
 
 export const objectSlice = createSlice({
     name: "chatting",
@@ -16,6 +26,23 @@ export const objectSlice = createSlice({
     reducers: {
         setObjectName: (state, { payload }) => {
             state.objectName = payload;
+        }
+    },
+    extraReducers: {
+        [sendMessage.pending]: (state) => {
+            state.isLoading = true;
+            state.isNewMessage = false;
+        },
+        [sendMessage.fulfilled]: (state, { payload }) => {
+            state.isLoading = false;
+            state.isNewMessage = true;
+            console.log(payload)
+
+        },
+        [sendMessage.rejected]: (state, { payload }) => {
+            state.isLoading = false;
+            state.isNewMessage = false;
+            console.log(payload)
         }
     }
 

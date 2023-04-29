@@ -13,7 +13,8 @@ const initialState = {
 
 export const sendMessage = createAsyncThunk("chats/sendMessage", async (input, thunkAPI) => {
     try {
-        const resp = await axios.post("/api/chats/sendMessage", { receiveName: input.receive, message: input.message })
+        console.log("OBJECT SLICE ", input)
+        const resp = await axios.post("/api/chats/sendMessage", { receiveName: input.objectName, message: input.message })
         return resp.data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data)

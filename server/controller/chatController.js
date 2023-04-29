@@ -1,9 +1,15 @@
 import User from "../model/User.js"
 import { StatusCodes } from "http-status-codes"
+import dateFormat from 'dateformat';
+import moment from "moment"
 
 const sendMessage = async (req, res) => {
     const username = req.session.username
     const { receiveName, message } = req.body
+    console.log("username ", username)
+    console.log("receiveName ", receiveName)
+    console.log("message ", message)
+
     const findUser = await User.findOne({ username: username })
     const findReceive = await User.findOne({ username: receiveName })
 
@@ -17,7 +23,7 @@ const sendMessage = async (req, res) => {
     if (!(findUser.chatHistory).find(receive => receive.receiver === receiveName)) {
         findUser.chatHistory.push({
             receiver: receiveName,
-            messages: [{ content: message }]
+            messages: [{ content: message, date: Date.now() }]
         })
         findUser.save()
         return res.status(StatusCodes.OK).json({ msg: "Send message successfully", data: findUser })
@@ -25,7 +31,8 @@ const sendMessage = async (req, res) => {
     if ((findUser.chatHistory).find(receive => receive.receiver === receiveName)) {
         const indexReceive = findUser.chatHistory.findIndex(receive => receive.receiver === receiveName)
         findUser.chatHistory[indexReceive].messages.push({
-            content: message
+            content: message,
+            date: Date.now()
         })
     }
     findUser.save()
@@ -33,8 +40,18 @@ const sendMessage = async (req, res) => {
 }
 
 const sortAndFilterListMessage = (listMessage) => {
-    const messages = listMessage
-    let sortMessage = messages.sort((a, b) => (new Date(a.message.date) - new Date(b.message.date)))
+    let messages = listMessage
+    let sortMessage = messages.sort((a, b) => {
+        const dateA = (a.message.date)
+        const dateB = (b.message.date)
+        if (dateA < dateB) {
+            return -1;
+        }
+        if (dateA > dateB) {
+            return 1;
+        }
+        return 0;
+    })
     return sortMessage
 }
 
@@ -57,6 +74,7 @@ const getMessage = async (req, res) => {
             const { content, date } = message
             resultListMessage.push({
                 message: {
+                    name: "You",
                     content: content,
                     date: date,
                     isOwner: true,
@@ -71,6 +89,7 @@ const getMessage = async (req, res) => {
             const { content, date } = message
             resultListMessage.push({
                 message: {
+                    name: String(receiveName),
                     content: content,
                     date: date,
                     isOwner: false,

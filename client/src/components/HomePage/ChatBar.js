@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Input, Form, Button, Typography } from "antd"
 import Friend from '../Friend'
 import styled from 'styled-components'
@@ -7,7 +7,7 @@ import Message from './Message'
 import { useDispatch, useSelector } from 'react-redux'
 import { sendMessage } from '../../features/chatObject/objectSlice'
 import axios from 'axios'
-
+import moment from "moment"
 const HeaderStyled = styled.div`
     height: 10vh;
     margin: 1rem 0 0 1rem;
@@ -54,7 +54,7 @@ export const ChatBar = ({ socket }) => {
     }
     const handleSubmit = (e) => {
         form.resetFields();
-        dispatch(sendMessage(objectName, message))
+        dispatch(sendMessage({ objectName: objectName, message: message }))
         console.log(message)
     }
     const getMessage = async () => {
@@ -62,6 +62,9 @@ export const ChatBar = ({ socket }) => {
             const resp = await axios.post(`/api/chats/getMessage/${objectName}`)
             const listMessage = resp.data.listMessage
             if (listMessage.length > 0) {
+                listMessage.map(object => {
+                    console.log(object)
+                })
                 setListMessages(listMessage)
             }
         } catch (error) {
@@ -83,10 +86,18 @@ export const ChatBar = ({ socket }) => {
                     </HeaderStyled><ContentStyled >
                         <ListMessageStyled>
                             {listMessages ?
-                                <Message value={{}} />
-                                : ""
+                                listMessages.map((object, index) =>
+                                    <Message key={index} value={{
+                                        nameDisplay: object.message.name,
+                                        dateText: moment(object.message.date).format("HH:MM:SS DD-MM-YYYY "),
+                                        message: object.message.content,
+                                        avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s",
+                                        isOwnerMessage: object.message.isOwner
+                                    }} />
+                                )
+                                : <></>
                             }
-                            <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message>
+                            {/* <Message value={{ nameDisplay: "AAAAAAAAA", dateText: "12/02/2023", message: "Hello", avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm-R4c-jnJRMpKve4e7mVawuYbGOgzX5SPWUWwCznT&s", isOwnerMessage: true }}></Message> */}
                         </ListMessageStyled>
                         <FormStyled onFinish={handleSubmit} form={form}>
                             <Form.Item style={{ width: '100%' }} name="message">

@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import moment from 'moment';
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -24,7 +25,7 @@ const UserSchema = new mongoose.Schema({
             receiver: String,
             messages: [{
                 content: String,
-                date: { type: Date, default: Date.now() },
+                date: { type: Date },
             }],
         }
     ]

@@ -31,7 +31,7 @@ export const PanelFriend = ({ socket }) => {
     const [listFriend, setListFriend] = useState()
     const dispatch = useDispatch()
     const selectFriend = (id, friend) => {
-        socket.emit("chat_with", id, friend)
+        socket.emit("chat_with", friend)
         dispatch(setObjectName(friend))
     }
 

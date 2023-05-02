@@ -43,10 +43,11 @@ const FormStyled = styled(Form)`
     margin: 0 2rem 1rem 2rem;
 `
 export const ChatBar = ({ socket }) => {
-    const { objectName, isNewMessage } = useSelector((state) => state.chatting)
+    const { objectName } = useSelector((state) => state.chatting)
     const [form] = Form.useForm()
     const [message, setMessage] = useState("")
     const [listMessages, setListMessages] = useState([])
+    const [newMessage, setNewMessage] = useState(false)
     const dispatch = useDispatch()
 
     const handleChange = (e) => {
@@ -54,28 +55,61 @@ export const ChatBar = ({ socket }) => {
     }
     const handleSubmit = (e) => {
         form.resetFields();
+        socket.emit("message", { friendName: objectName, message: message })
         dispatch(sendMessage({ objectName: objectName, message: message }))
-        console.log(message)
+        setNewMessage(true)
     }
-    const getMessage = async () => {
-        try {
-            const resp = await axios.post(`/api/chats/getMessage/${objectName}`)
-            const listMessage = resp.data.listMessage
-            if (listMessage.length > 0) {
-                listMessage.map(object => {
-                    console.log(object)
-                })
-                setListMessages(listMessage)
-            }
-        } catch (error) {
-            console.log(error)
-            return error
-        }
-    }
+    // const getMessage = useMemo(async () => {
+    //     console.log("Re render getmessage")
+    //     try {
+    //         const resp = await axios.post(`/api/chats/getMessage/${objectName}`)
+    //         const listMessage = resp.data.listMessage
+    //         if (listMessage.length > 0) {
+    //             listMessage.map(object => {
+    //                 console.log(object)
+    //             })
+    //             setListMessages(listMessage)
+    //         }
+    //         return;
+    //     } catch (error) {
+    //         console.log(error)
+    //         return error
+    //     }
+    // }, [listMessages])
 
     useEffect(() => {
-        getMessage()
-    }, [objectName, isNewMessage])
+        const fetchMessage = async () => {
+            try {
+                const resp = await axios.post(`/api/chats/getMessage/${objectName}`)
+                const listMessage = resp.data.listMessage
+                if (listMessage.length > 0) {
+                    // listMessage.map(object => {
+                    //     console.log(object)
+                    // })
+                    setListMessages(listMessage)
+                }
+                else {
+                    setListMessages([])
+                }
+                return;
+            } catch (error) {
+                console.log(error)
+                return error
+            }
+        }
+        if (objectName !== null) {
+            socket.emit("getListMessage", listMessages)
+            fetchMessage()
+        }
+
+        if (objectName !== null && newMessage) {
+            socket.on("message", (messages) => {
+                setListMessages(messages)
+                setNewMessage(false)
+            })
+        }
+    }, [objectName, listMessages])
+
     return (
         <WrapperStyled>
 

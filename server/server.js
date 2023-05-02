@@ -8,6 +8,7 @@ dotenv.config()
 import connect from './db/connect.js'
 import { Server } from "socket.io"
 import session from "express-session"
+import axios from "axios"
 
 app.use(express.json())
 app.use(cors())
@@ -40,9 +41,28 @@ const io = new Server(startServer, {
 })
 
 const onlineUsers = {}
-let message = [{}]
+let messages = []
 
 io.on("connection", (socket) => {
+    // const fetchMessage = async (friendName) => {
+    //     try {
+    //         const resp = await axios.post(`http://localhost:5000/api/chats/getMessage/${friendName}`)
+    //         const listMessage = resp.data.listMessage
+    //         if (listMessage.length > 0) {
+    //             // listMessage.map(object => {
+    //             //     console.log(object)
+    //             // })
+    //             return message = listMessage
+    //         }
+    //         else {
+    //             return message = []
+    //         }
+    //     } catch (error) {
+    //         console.log(error)
+    //         return error
+    //     }
+    // }
+
     console.log("Connection ", socket.id)
     socket.on("login", (user) => {
         onlineUsers[socket.id] = { serverId: socket.id, username: user.username }
@@ -52,16 +72,24 @@ io.on("connection", (socket) => {
         socket.emit("friends", Object.values(onlineUsers))
     })
 
-    socket.on("chat_with", (friendId, friendName) => {
-        socket.join(friendId)
+    socket.on("chat_with", (friendName) => {
+        const findFriendId = Object.values(onlineUsers).find(user => user.username === friendName)
+        // socket.join(findFriendId.serverId)
         // const senderId = socket.id
         // const sender = onlineUsers[socket.id]
         // const recipient = io.sockets.connected[friendId]
-        console.log("Chat with friend ", friendName)
+        // console.log("Chat with friend ", friendName)
+        // fetchMessage(friendName)
+    })
+    socket.on("getListMessages", (listMessage) => {
+        messages = listMessage
     })
 
-    socket.on("send_message", (data) => {
-        socket.to(data.id).emit("receive_message", data)
+    socket.on("message", (data) => {
+        // message.push(data.messages)
+        const findFriendId = Object.values(onlineUsers).find(user => user.username === data.friendName)
+        // message = fetchMessage(data.friendName)
+        socket.to(findFriendId.serverId).emit("message", messages)
     })
 
     socket.on("offline", () => {

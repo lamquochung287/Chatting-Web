@@ -41,14 +41,16 @@ const ContainerStyled = styled.div`
 export default function Message(props) {
     const { nameDisplay, message, avatar, dateText, isOwnerMessage } = props.value
     let rowOrRowReverse = "row";
+    let backgroundColor = "";
     if (isOwnerMessage) {
         rowOrRowReverse = "row-reverse";
+        backgroundColor = "rgb(227, 255, 254)";
     }
     return (
         <WrapperStyled style={{ flexDirection: rowOrRowReverse }}>
 
             <Avatar className="avatar" size={50} src={avatar}></Avatar>
-            <ContainerStyled>
+            <ContainerStyled style={{ justifyContent: "flex-end", backgroundColor: backgroundColor }}>
                 <Typography.Text className='author'>
                     {nameDisplay}
                 </Typography.Text>

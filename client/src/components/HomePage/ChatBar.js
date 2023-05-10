@@ -40,6 +40,7 @@ const WrapperStyled = styled.div`
 const FormStyled = styled(Form)`
     display: flex;
     justify-content: space-between;
+    gap: 1em;
     margin: 0 2rem 1rem 2rem;
 `
 export const ChatBar = ({ socket }) => {
@@ -138,7 +139,7 @@ export const ChatBar = ({ socket }) => {
                                 <Input placeholder="Enter message to send" type="text" onChange={handleChange}></Input>
                             </Form.Item>
                             <Form.Item>
-                                <Button htmlType="submit" style={{ border: 'none' }}><SendOutlined></SendOutlined></Button>
+                                <Button htmlType="submit" style={{ border: 'none' }}><SendOutlined style={{ color: 'LightSeaGreen' }}></SendOutlined></Button>
                             </Form.Item>
                         </FormStyled>
 

@@ -16,7 +16,8 @@ const ContainerStyled = styled.div`
 `
 
 const ButtonStyled = styled(Button)`
-    background: rgba(0,0,0,0.1);
+    background: rgb(227, 255, 254);
+
 `
 
 const AvatarStyled = styled(Avatar)`

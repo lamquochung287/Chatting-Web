@@ -6,6 +6,7 @@ import ProtectedRoute from "./pages/ProtectedRoute.js";
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import HomePage from "./pages/HomePage.js";
+import AdvertisePage from "./pages/AdvertisePage.js";
 
 
 
@@ -13,6 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/advertise" element={<AdvertisePage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/" element={

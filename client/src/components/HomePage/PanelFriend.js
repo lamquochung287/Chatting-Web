@@ -10,6 +10,7 @@ const PanelFriendStyled = styled.div`
 `
 const PersonListStyled = styled.div`
     height: 75vh;
+    width: 17vw;
     max-height: 100%;
     overflow-y: auto;
 `
@@ -24,6 +25,7 @@ const ButtonStyled = styled(Button)`
     background: none;
     border: none;
     height: 10vh;
+    width: inherit;
 
 `
 export const PanelFriend = ({ socket }) => {

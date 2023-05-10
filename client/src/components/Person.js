@@ -12,11 +12,11 @@ export const Person = ({ name, onClick }) => {
             </div>
             <div className="person-infor">
                 <div className="person-item">
-                    <span> Person Name: {name}</span>
+                    <span style={{ fontWeight: 'bold', textTransform: "lowercase" }}> {name}</span>
                 </div>
-                <div className="person-item">
+                {/* <div className="person-item">
                     <span> Lorem i?</span>
-                </div>
+                </div> */}
             </div>
         </div>
     )

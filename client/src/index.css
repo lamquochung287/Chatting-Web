@@ -3,8 +3,9 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  /* font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace; */
+  font-family: 'Comme', sans-serif;
 }
 
 :root {
@@ -60,7 +61,8 @@ select {
 .person-container {
   display: flex;
   flex-direction: row;
-  height: 10vh;
+  height: 7vh;
+  gap: 2rem;
   width: inherit;
   border: none;
   cursor: pointer;
@@ -68,6 +70,7 @@ select {
 
 .person-infor {
   display: flex;
+  justify-content: center;
   margin-left: 5px;
   flex-direction: column;
 }
@@ -77,9 +80,8 @@ select {
 }
 
 .person-img {
-  width: 5rem;
-  height: 5rem;
-  padding: 5px;
+  width: 4rem;
+  height: 4rem;
 }
 
 img {

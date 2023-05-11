@@ -14,10 +14,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/advertise" element={<AdvertisePage />} />
+        <Route path="/" element={<AdvertisePage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
-        <Route path="/" element={
+        <Route path="/chat" element={
           <ProtectedRoute>
             <HomePage />
           </ProtectedRoute>

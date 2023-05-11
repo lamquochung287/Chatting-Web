@@ -52,7 +52,7 @@ const LoginForm = () => {
         if (isLogin === true) {
             toast.success("Login successful")
             setTimeout(() => {
-                navigate("/")
+                navigate("/chat")
             }, 2000)
         }
     }, [isLogin, isError])

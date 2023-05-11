@@ -30,7 +30,9 @@ const ButtonStyled = styled(Button)`
 `
 export const PanelFriend = ({ socket }) => {
     const { user } = useSelector((state) => state.login)
-    const [listFriend, setListFriend] = useState()
+    const { findFriendByName } = useSelector((state) => state.chatting)
+
+    const [listFriend, setListFriend] = useState([])
     const dispatch = useDispatch()
     const selectFriend = (id, friend) => {
         socket.emit("chat_with", friend)
@@ -43,7 +45,14 @@ export const PanelFriend = ({ socket }) => {
             const listData = list.filter(i => i.username !== user.username)
             setListFriend(listData)
         })
+
     })
+
+    useEffect(() => {
+        const result = listFriend.filter(object => object.username === findFriendByName)
+        setListFriend(result)
+        console.log(result)
+    }, [findFriendByName])
 
     return (
         <PanelFriendStyled>
@@ -56,7 +65,8 @@ export const PanelFriend = ({ socket }) => {
                             <ButtonStyled key={friend.serverId} onClick={() => { selectFriend(friend.serverId, friend.username) }}>
                                 <Person key={friend.serverId} name={friend.username} />
                             </ButtonStyled>
-                        )}
+                        )
+                    }
                 </PersonListStyled>
             </WrapperListStyled>
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import { AdvertisePageStyled } from './style/AdvertisePageStyle'
-import LoginForm from '../components/LoginForm'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom"
 
 export const AdvertisePage = () => {
     return (
@@ -15,11 +14,13 @@ export const AdvertisePage = () => {
                     This web makes it easy and fun to stay close to your favorite people.
                 </div>
                 <div className="btn-container">
-                    <Link className='btn'> Login Now</Link>
-                    <Link className='btn'> Register Now</Link>
+                    <Link to="/login" className='btn'> Login Now</Link>
+                    <Link to="/register" className='btn'> Register Now</Link>
                 </div>
             </section>
-            <img className="img-chat" src="/chatImage.png" alt="chat Image PR"></img>
+            <aside>
+                <img className="img-chat" src="/chatImage.png" alt="chat Image PR"></img>
+            </aside>
             <footer>
                 <div>
                     © Make in 2023

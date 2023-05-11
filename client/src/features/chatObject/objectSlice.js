@@ -8,6 +8,7 @@ const initialState = {
     objectName: null,
     isLoading: false,
     isNewMessage: false,
+    findFriendByName: "",
     chatList: [],
 }
 
@@ -28,6 +29,9 @@ export const objectSlice = createSlice({
     reducers: {
         setObjectName: (state, { payload }) => {
             state.objectName = payload;
+        },
+        findFriendName: (state, { payload }) => {
+            state.findFriendByName = payload;
         }
     },
     extraReducers: {
@@ -49,5 +53,5 @@ export const objectSlice = createSlice({
     }
 
 })
-export const { setObjectName } = objectSlice.actions
+export const { setObjectName, findFriendName } = objectSlice.actions
 export default objectSlice.reducer

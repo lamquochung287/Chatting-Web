@@ -2,9 +2,11 @@ import styled from 'styled-components'
 
 
 export const AdvertisePageStyled = styled.div`
-    margin: 0 15rem;
+    margin: 2rem 15rem;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 2.5fr;
+    width: fit-content;
+    box-sizing: border-box;
 
     section .title{
         background: linear-gradient(to right, #80786b, #789998);
@@ -23,7 +25,12 @@ export const AdvertisePageStyled = styled.div`
         font-weight: 400;
     }
     footer{
-        grid-column: 2/1;
+        margin-top: 2rem;
+        grid-column: 1 / -1;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 3rem;
     }
 
     .btn-container{
@@ -42,10 +49,12 @@ export const AdvertisePageStyled = styled.div`
     }
 
     .img-chat{
-        margin: 2rem;
+        margin: 2rem 2rem;
         filter: blur(0.1rem);
         border-radius: 2rem;
-        width: 100%;
+        width: 90%;
         height: 90%;
     }
+
+
 `

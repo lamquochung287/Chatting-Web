@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Avatar, Button, Typography } from 'antd'
 import styled from 'styled-components'
 import { logout } from '../../features/login/loginSlice'
+import { setObjectName } from '../../features/chatObject/objectSlice'
 import { toast } from 'react-toastify';
 
 
@@ -31,6 +32,7 @@ export const User = ({ socket }) => {
         socket.emit("offline")
         toast.success(`${user.username} log out success`)
         dispatch(logout())
+        dispatch(setObjectName(null))
     }
 
     useEffect(() => {

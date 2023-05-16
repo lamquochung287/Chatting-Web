@@ -55,9 +55,8 @@ const sortAndFilterListMessage = (listMessage) => {
 }
 
 const getMessage = async (req, res) => {
-    console.log(req.body)
-    const username = req.params.username
-    const receiveName = req.params.friendName
+    const username = req.body.username
+    const receiveName = req.body.friendName
     const findUser = await User.findOne({ username: username })
     const findReceive = await User.findOne({ username: receiveName })
     if (!findUser) {

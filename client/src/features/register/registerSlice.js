@@ -10,7 +10,7 @@ const initialState = {
 
 export const registerUser = createAsyncThunk('users/register', async (input, thunkAPI) => {
     try {
-        const response = await axios.post("/api/users/register", input)
+        const response = await axios.post("https://chatting-web-iiv3.onrender.com/api/users/register", input)
         return response.data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data)

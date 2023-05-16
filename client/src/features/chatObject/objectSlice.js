@@ -15,7 +15,7 @@ const initialState = {
 export const sendMessage = createAsyncThunk("chats/sendMessage", async (input, thunkAPI) => {
     try {
         console.log("OBJECT SLICE ", input)
-        const resp = await axios.post("https://chatting-web-iiv3.onrender.com/api/chats/sendMessage", { receiveName: input.objectName, message: input.message })
+        const resp = await axios.post("https://chatting-web-iiv3.onrender.com/api/chats/sendMessage", { username: input.username, receiveName: input.objectName, message: input.message })
         return resp.data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data)

@@ -4,8 +4,7 @@ import dateFormat from 'dateformat';
 import moment from "moment"
 
 const sendMessage = async (req, res) => {
-    const username = req.session.username
-    const { receiveName, message } = req.body
+    const { username, receiveName, message } = req.body
     console.log("username ", username)
     console.log("receiveName ", receiveName)
     console.log("message ", message)
@@ -56,7 +55,7 @@ const sortAndFilterListMessage = (listMessage) => {
 }
 
 const getMessage = async (req, res) => {
-    const username = req.session.username
+    const username = req.params.username
     const receiveName = req.params.friendName
     const findUser = await User.findOne({ username: username })
     const findReceive = await User.findOne({ username: receiveName })

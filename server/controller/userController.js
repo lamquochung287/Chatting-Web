@@ -18,7 +18,6 @@ const login = async (req, res) => {
         return res.status(StatusCodes.BAD_REQUEST).json({ msg: "Password wrong" })
     }
     req.session.username = username
-    console.log(req.session.username)
     return res.status(StatusCodes.OK).json({ user: user, msg: "Login success" })
 }
 

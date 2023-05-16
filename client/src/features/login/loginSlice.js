@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { setObjectName } from "../chatObject/objectSlice";
 import { useDispatch } from "react-redux";
 const user = localStorage.getItem('user');
 

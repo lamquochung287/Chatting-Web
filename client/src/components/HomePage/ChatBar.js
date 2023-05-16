@@ -45,6 +45,7 @@ const FormStyled = styled(Form)`
 `
 export const ChatBar = ({ socket }) => {
     const { objectName } = useSelector((state) => state.chatting)
+    const { user } = useSelector((state) => state.login)
     const [form] = Form.useForm()
     const [message, setMessage] = useState("")
     const [listMessages, setListMessages] = useState([])
@@ -57,7 +58,7 @@ export const ChatBar = ({ socket }) => {
     const handleSubmit = (e) => {
         form.resetFields();
         socket.emit("message", { friendName: objectName, message: message })
-        dispatch(sendMessage({ objectName: objectName, message: message }))
+        dispatch(sendMessage({ username: user.username, objectName: objectName, message: message }))
         setNewMessage(true)
     }
     // const getMessage = useMemo(async () => {
@@ -81,7 +82,7 @@ export const ChatBar = ({ socket }) => {
     useEffect(() => {
         const fetchMessage = async () => {
             try {
-                const resp = await axios.post(`https://chatting-web-iiv3.onrender.com/api/chats/getMessage/${objectName}`)
+                const resp = await axios.post(`https://chatting-web-iiv3.onrender.com/api/chats/getMessage`, { params: { username: user.username, friendName: objectName } })
                 const listMessage = resp.data.listMessage
                 if (listMessage.length > 0) {
                     // listMessage.map(object => {

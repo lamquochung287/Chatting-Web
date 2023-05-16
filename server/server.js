@@ -7,13 +7,15 @@ import dotenv from 'dotenv'
 dotenv.config()
 import connect from './db/connect.js'
 import { Server } from "socket.io"
-import session from "express-session"
+import session from "cookie-session"
 import axios from "axios"
 
 app.use(express.json())
 app.use(cors())
 app.use(session({
-    secret: "Secret key"
+    name: "session",
+    keys: "Secret key",
+    maxAge: 24 * 60 * 60 * 1000
 }))
 app.use("/api/users", userRoutes);
 app.use("/api/chats", chatRoutes);

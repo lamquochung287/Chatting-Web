@@ -81,7 +81,7 @@ export const ChatBar = ({ socket }) => {
     useEffect(() => {
         const fetchMessage = async () => {
             try {
-                const resp = await axios.post(`/api/chats/getMessage/${objectName}`)
+                const resp = await axios.post(`https://chatting-web-iiv3.onrender.com/api/chats/getMessage/${objectName}`)
                 const listMessage = resp.data.listMessage
                 if (listMessage.length > 0) {
                     // listMessage.map(object => {

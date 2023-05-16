@@ -14,7 +14,7 @@ const initialState = {
 
 export const loginUser = createAsyncThunk('users/login', async (input, thunkAPI) => {
     try {
-        const resp = await axios.post("/api/users/login", { username: input.user.username, password: input.user.password })
+        const resp = await axios.post("https://chatting-web-iiv3.onrender.com/api/users/login", { username: input.user.username, password: input.user.password })
         return resp.data
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data)

@@ -35,7 +35,7 @@ const start = async () => {
 
 const io = new Server(startServer, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "https://chatting-web-lqh287.netlify.app",
         method: ["GET", "POST"],
     }
 })

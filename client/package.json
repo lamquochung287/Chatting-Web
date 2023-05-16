@@ -38,7 +38,7 @@
       "react-app/jest"
     ]
   },
-  "proxy": "https://chatting-web-fr0a.onrender.com",
+  "proxy": "https://chatting-web-iiv3.onrender.com",
   "browserslist": {
     "production": [
       ">0.2%",
